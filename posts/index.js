@@ -1,8 +1,10 @@
 const express = require('express');
 const {randomBytes} = require('crypto');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 
 const posts = {};
@@ -12,6 +14,7 @@ app.get('/posts', (req, res) => {
 });
 
 app.post('/posts', (req, res) => {
+    console.log('post req', req.body);
     const id = randomBytes(4).toString('hex');
     const { title } = req.body;
     posts[id] = {id, title};
